@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pdf-converter"
+version = "0.1.0"
+description = "PDF to Word converter for Polarion ALM import"
+requires-python = ">=3.10"
+dependencies = [
+    "docling>=2.70",
+    "docling-core>=2.0",
+    "python-docx>=1.1",
+    "click>=8.1",
+    "pydantic>=2.0",
+    "pyyaml>=6.0",
+    "Pillow>=10.0",
+]
+
+[project.optional-dependencies]
+marker = ["marker-pdf>=1.0"]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.4",
+]
+
+[project.scripts]
+pdf-converter = "pdf_converter.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "integration: marks tests requiring PDF parsing (deselect with '-m not integration')",
+]
